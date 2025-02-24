@@ -2,38 +2,69 @@ const { spawnSync } = require("child_process");
 
 function startRabbitmq() {
   console.log(`::Start building DockerImage for RABBITMQ`);
+
   let processPullRabbitmq = spawnSync(`docker pull rabbitmq:management`, [], {
     shell: true,
     encoding: "utf8",
-    stdio: ["inherit", "inherit", "pipe"],
+    stdio: "pipe", // Volle Kontrolle über stdout und stderr
   });
+
+  if (processPullRabbitmq.error) {
+    console.error(
+      `::Rabbitmq Pull encountered an error`,
+      processPullRabbitmq.error
+    );
+    throw new Error(processPullRabbitmq.error.message);
+  }
+
+  if (processPullRabbitmq.status !== 0) {
+    console.error(`::Rabbitmq Pull failed:`, processPullRabbitmq.stderr.trim());
+    throw new Error(
+      processPullRabbitmq.stderr.trim() || "Unknown error during RabbitMQ pull"
+    );
+  }
+
+  console.log(`✅ RabbitMQ successfully pulled!`);
+
   let processNetwork = spawnSync(`docker network create rabbitmq-network`, [], {
     shell: true,
     encoding: "utf8",
-    stdio: ["inherit", "inherit", "pipe"],
+    stdio: "pipe",
   });
+
+  if (processNetwork.status !== 0) {
+    console.error(
+      `::Docker Network creation failed:`,
+      processNetwork.stderr.trim()
+    );
+    throw new Error(
+      processNetwork.stderr.trim() || "Unknown error creating Docker network"
+    );
+  }
+
+  console.log(`✅ Docker network created!`);
+
   let process = spawnSync(
     `docker run -d --hostname my-rabbit --name rabbit --network rabbitmq-network -e RABBITMQ_DEFAULT_USER=mquser -e RABBITMQ_DEFAULT_PASS=mqpass -p 15672:15672 -p 5672:5672 --restart=unless-stopped rabbitmq:management`,
     [],
     {
       shell: true,
       encoding: "utf8",
-      stdio: ["inherit", "inherit", "pipe"],
+      stdio: "pipe",
     }
   );
 
-  if (processPullRabbitmq.stderr) {
-    console.log(`::Rabbitmq Pull failed`);
-    throw new Error(process.stderr);
+  if (process.status !== 0) {
+    console.error(
+      `::DockerImage for RABBITMQ build failed!`,
+      process.stderr.trim()
+    );
+    throw new Error(
+      process.stderr.trim() || "Unknown error during RabbitMQ container startup"
+    );
   }
-  if (processNetwork.stderr) {
-    console.log(`::Docker Network for rabbitmq failed`);
-    throw new Error(process.stderr);
-  }
-  if (process.stderr) {
-    console.log(`::DockerImage for RABBITMQ build failed!`);
-    throw new Error(process.stderr);
-  }
+
+  console.log(`✅ RabbitMQ container started successfully!`);
 }
 
 function buildDockerImage(path, dockerImageName) {
