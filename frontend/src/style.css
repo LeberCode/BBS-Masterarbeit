@@ -1,0 +1,368 @@
+body {
+  background-color: rgb(249, 249, 249);
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+.App {
+  text-align: center;
+}
+
+.Body {
+  display: flex;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+#Diagram {
+  width: 100%;
+  height: 98vh;
+  margin: 6px;
+  margin-top: -12px;
+  position: relative;
+}
+
+#Toolbox {
+  width: 120px;
+  height: 95vh;
+  padding: 0 24px;
+  border: 1px solid rgb(0, 0, 0);
+  border-radius: 24px;
+  overflow-y: auto;
+  overflow-x: auto;
+  box-shadow: 2px 4px 8px 0px #0000007d;
+  background: linear-gradient(45deg, #e5e5e5, white);
+  margin-top: 12px;
+}
+
+.Filter {
+  text-align: center;
+  align-content: center;
+  position: absolute;
+  border: 1px solid black;
+  border-radius: 4px;
+  min-width: 84px;
+  width: fit-content;
+  height: 66px;
+  padding: 3px 6px;
+  cursor: grab;
+  background-color: white;
+  box-shadow: #0000007d 0px 6px 6px -6px;
+  font-size: 13px;
+}
+
+#Toolbox .Filter {
+  position: relative;
+  margin: 12px auto;
+  height: 24px;
+}
+
+.Filter:active {
+  cursor: grabbing;
+}
+
+.Pipe {
+  text-align: center;
+  align-content: center;
+  position: absolute;
+  padding: 3px 12px;
+  width: fit-content;
+  height: fit-content;
+  border: 1px solid black;
+  border-radius: 18px;
+  cursor: grab;
+  background-color: white;
+  box-shadow: #0000007d 0px 6px 6px -4px;
+  font-size: 13px;
+}
+
+.Pipe:active {
+  cursor: grabbing;
+}
+
+#Toolbox .Pipe {
+  position: relative;
+  margin: 12px auto;
+}
+
+.custom-menu {
+  z-index: 1000;
+  position: absolute;
+  background-color: rgb(235, 235, 235);
+  border-radius: 6px;
+  padding: 6px;
+}
+
+.custom-menu-button {
+  background-color: inherit;
+  text-align: left;
+  border: none;
+  padding: 6px 12px;
+  cursor: pointer;
+  border-radius: 3px;
+}
+
+.custom-menu-button:hover {
+  background-color: lightblue;
+}
+
+#delete-pipe:hover {
+  background-color: red;
+  color: white;
+}
+
+#delete-filter:hover {
+  background-color: red;
+  color: white;
+}
+
+#delete-connection:hover {
+  background-color: red;
+  color: white;
+}
+
+#scale-out:hover {
+  background-color: blue;
+  color: white;
+}
+
+.window {
+  z-index: 20;
+}
+.jtk-connector {
+  z-index: 4;
+}
+.jtk-endpoint {
+  z-index: 5;
+}
+.jtk-overlay {
+  z-index: 6;
+}
+
+.cm-editor {
+  max-height: 60vh;
+  cursor: default;
+}
+
+.editorContainer {
+  position: absolute;
+  text-align: left;
+  width: 75%;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0px 4px 8px 0px #0000007d;
+  z-index: 99;
+  background-color: white;
+  cursor: grab;
+  font-weight: lighter;
+  font-size: 12px;
+}
+
+.editorContainer:active {
+  cursor: grabbing;
+}
+
+#submitButton {
+  background-color: #04aa6d;
+  margin: 6px;
+}
+
+#cancelButton {
+  margin: 6px;
+}
+
+.codeEditorButtons {
+  text-align: end;
+}
+
+.closingX {
+  background-color: red;
+  position: absolute;
+  top: 0px;
+  right: 0px;
+  padding: 8px;
+  border-top-right-radius: 12px;
+  cursor: pointer;
+  font-family: sans-serif;
+  font-weight: bold;
+}
+
+.customButton {
+  border: 0px black solid;
+  border-radius: 4px;
+  padding: 8px 12px;
+  cursor: pointer;
+  width: 120px;
+  box-shadow: #0000007d 0px 6px 6px -6px;
+  font-family: "Gill Sans", "Gill Sans MT", Calibri, "Trebuchet MS", sans-serif;
+}
+
+#Deploy {
+  position: absolute;
+  right: 144px;
+  top: 24px;
+  background-color: #04aa6d;
+}
+
+#Pause {
+  position: absolute;
+  right: 12px;
+  top: 24px;
+  background-color: orange;
+}
+
+#ClearModel {
+  position: absolute;
+  left: 12px;
+  top: 24px;
+  background-color: lightblue;
+}
+
+#KillDeployment {
+  position: absolute;
+  left: 144px;
+  top: 24px;
+  background-color: red;
+}
+
+#Deploy:disabled,
+#Pause:disabled,
+#ClearModel:disabled,
+#KillDeployment:disabled {
+  cursor: not-allowed;
+  background-color: lightgray;
+  color: rgba(0, 0, 0, 0.5);
+}
+
+#Loader {
+  border: 6px solid #f3f3f3; /* Light grey */
+  border-top: 6px solid #3498db; /* Blue */
+  border-radius: 50%;
+  width: 24px;
+  height: 24px;
+  animation: spin 2s linear infinite;
+  margin: auto;
+  visibility: hidden;
+}
+
+@keyframes spin {
+  0% {
+    transform: rotate(0deg);
+  }
+  100% {
+    transform: rotate(360deg);
+  }
+}
+
+#Error {
+  text-align: center;
+  font-size: 36px;
+  color: red;
+  margin: auto;
+  visibility: hidden;
+}
+
+#Success {
+  text-align: center;
+  font-size: 36px;
+  color: green;
+  margin: auto;
+  visibility: hidden;
+}
+
+#Diagram .Scale {
+  position: absolute;
+  right: -6px;
+  top: -24px;
+  border: 1px black solid;
+  border-radius: 24px;
+  background-color: white;
+  padding: 3px;
+}
+
+#Toolbox .Scale {
+  position: absolute;
+  visibility: hidden;
+}
+
+#Diagram #Warning {
+  position: absolute;
+  left: -12px;
+  top: -6px;
+  color: red;
+}
+
+#Toolbox #Warning {
+  position: absolute;
+  visibility: hidden;
+}
+
+#Diagram #Check {
+  position: absolute;
+  left: -18px;
+  top: -6px;
+  color: green;
+  visibility: hidden;
+}
+
+#Toolbox #Check {
+  position: absolute;
+  visibility: hidden;
+}
+
+#Diagram #DeployIcon {
+  position: absolute;
+  left: -18px;
+  top: -6px;
+  color: blue;
+  background-color: ghostwhite;
+  visibility: hidden;
+}
+
+#Toolbox #DeployIcon {
+  position: absolute;
+  visibility: hidden;
+}
+
+#Diagram #PauseIcon {
+  position: absolute;
+  left: -18px;
+  top: -6px;
+  color: orange;
+  visibility: hidden;
+}
+
+#Toolbox #PauseIcon {
+  position: absolute;
+  visibility: hidden;
+}
+
+.fa-circle-exclamation:before {
+  background-color: ghostwhite;
+}
+.fa-circle-check:before {
+  background-color: ghostwhite;
+}
+.fa-docker:before {
+  background-color: ghostwhite;
+}
+
+.pipes {
+  display: flex;
+  justify-content: space-between;
+}
+
+.legendContainer {
+  white-space: nowrap;
+  font-size: 10px;
+  position: absolute;
+  bottom: 36px;
+  text-align: left;
+}
+
+.elementsInLegend {
+  text-align: left;
+  margin: 12px 0;
+}
+
+#logoContainer {
+  padding-top: 24px;
+}

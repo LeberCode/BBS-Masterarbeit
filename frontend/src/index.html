@@ -1,0 +1,180 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>A JavaScript project</title>
+    <link rel="stylesheet" href="./style.css" />
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script src="https://code.jquery.com/ui/1.13.1/jquery-ui.min.js"></script>
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css"
+    />
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+    />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+  </head>
+  <body>
+    <div class="App">
+      <div class="Body">
+        <div id="Toolbox">
+          <div id="logoContainer">
+            <img
+              src="../assets/Logo.png"
+              alt="Logo der Website"
+              id="logo"
+              width="60px"
+            />
+          </div>
+          <hr />
+          <div>
+            <h5 style="font-weight: normal">PIPES</h5>
+            <div class="Pipe" data-type="Distributor" data-pipetype="Queue">
+              Queue
+              <br />
+              <span style="font-weight: bold" id="PipeName"></span>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+            </div>
+            <div class="Pipe" data-type="Distributor" data-pipetype="Topic">
+              Topic
+              <br />
+              <span style="font-weight: bold" id="PipeName"></span>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+            </div>
+          </div>
+          <hr />
+          <div>
+            <h5 style="font-weight: normal">FILTERS</h5>
+            <div class="Filter" data-type="Start">
+              Sender
+              <br />
+              <span style="font-weight: bold" id="FilterName"></span>
+              <p class="Scale">0</p>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+              <i id="DeployIcon" class="fa-solid fa-xl fa-play"></i>
+              <i id="PauseIcon" class="fa-solid fa-xl fa-pause"></i>
+            </div>
+            <div class="Filter" data-type="End">
+              Receiver
+              <br />
+              <span style="font-weight: bold" id="FilterName"></span>
+              <p class="Scale">0</p>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+              <i id="DeployIcon" class="fa-solid fa-xl fa-play"></i>
+              <i id="PauseIcon" class="fa-solid fa-xl fa-pause"></i>
+            </div>
+            <div class="Filter" data-type="Default">
+              BL
+              <br />
+              <span style="font-weight: bold" id="FilterName"></span>
+              <p class="Scale">0</p>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+              <i id="DeployIcon" class="fa-solid fa-xl fa-play"></i>
+              <i id="PauseIcon" class="fa-solid fa-xl fa-pause"></i>
+            </div>
+            <div class="Filter" data-type="Distributor">
+              Router
+              <br />
+              <span style="font-weight: bold" id="FilterName"></span>
+              <p class="Scale">0</p>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+              <i id="DeployIcon" class="fa-solid fa-xl fa-play"></i>
+              <i id="PauseIcon" class="fa-solid fa-xl fa-pause"></i>
+            </div>
+            <div class="Filter" data-type="Collector">
+              Aggregator
+              <br />
+              <span style="font-weight: bold" id="FilterName"></span>
+              <p class="Scale">0</p>
+              <i
+                id="Warning"
+                class="fa-sharp fa-solid fa-xl fa-exclamation"
+              ></i>
+              <i id="Check" class="fa-sharp fa-xl fa-solid fa-check"></i>
+              <i id="DeployIcon" class="fa-solid fa-xl fa-play"></i>
+              <i id="PauseIcon" class="fa-solid fa-xl fa-pause"></i>
+            </div>
+          </div>
+          <!-- <hr /> -->
+          <div class="legendContainer" style="white-space: nowrap">
+            <h5 style="font-size: 14px; font-weight: normal">Legend</h5>
+            <div class="elementsInLegend">
+              <i
+                style="color: red; margin-right: 6px"
+                class="fa-sharp fa-solid fa-l fa-exclamation"
+              ></i>
+              <span>User Action Required</span>
+            </div>
+            <div class="elementsInLegend">
+              <i
+                style="color: green; margin-right: 6px"
+                class="fa-sharp fa-l fa-solid fa-check"
+              ></i>
+              <span>Ready To Deploy</span>
+            </div>
+            <div class="elementsInLegend">
+              <i
+                style="color: blue; margin-right: 6px"
+                class="fa-solid fa-l fa-play"
+              ></i>
+              <span>Deployed And Running</span>
+            </div>
+            <div class="elementsInLegend">
+              <i
+                style="color: orange; margin-right: 6px"
+                class="fa-solid fa-l fa-pause"
+              ></i>
+              <span>Deployed But Paused</span>
+            </div>
+          </div>
+        </div>
+        <div id="Diagram">
+          <h4 style="font-weight: normal; margin-top: 24px">
+            MESSAGING-BASED &nbsp;SOFTWARE &nbsp;ARCHITECTURE
+          </h4>
+          <div id="Loader"></div>
+          <i id="Success" class="far fa-check-circle"></i>
+          <i id="Error" class="far fa-times-circle"></i>
+          <button class="customButton" id="ClearModel">Clear Model</button>
+          <button class="customButton" id="KillDeployment" disabled="true">
+            Kill Deployment
+          </button>
+          <button class="customButton" id="Deploy">
+            <span id="DeployText" style="margin-right: 6px"> Deploy </span>
+            <i class="fa-solid fa-l fa-play"></i>
+          </button>
+          <button class="customButton" id="Pause">
+            <span style="margin-right: 6px"> Pause </span>
+            <i class="fa-solid fa-l fa-pause"></i>
+          </button>
+        </div>
+      </div>
+    </div>
+    <script src="main.js"></script>
+  </body>
+</html>
